@@ -1,0 +1,59 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Users index{% endblock %}
+
+{% block body %}
+    <h1>Users index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Username</th>
+                <th>Password</th>
+                <th>Role</th>
+                <th>Name</th>
+                <th>LastName</th>
+                <th>Email</th>
+                <th>EntryTime</th>
+                <th>ExitTime</th>
+                <th>Stops</th>
+                <th>Vacations</th>
+                <th>Workshops</th>
+                <th>Documents</th>
+                <th>ReceiveNotifications</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for user in users %}
+            <tr>
+                <td>{{ user.id }}</td>
+                <td>{{ user.username }}</td>
+                <td>{{ user.password }}</td>
+                <td>{{ user.role }}</td>
+                <td>{{ user.name }}</td>
+                <td>{{ user.lastName }}</td>
+                <td>{{ user.email }}</td>
+                <td>{{ user.entryTime ? user.entryTime|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ user.exitTime ? user.exitTime|join(', ') : '' }}</td>
+                <td>{{ user.stops ? user.stops|join(', ') : '' }}</td>
+                <td>{{ user.vacations }}</td>
+                <td>{{ user.workshops ? user.workshops|join(', ') : '' }}</td>
+                <td>{{ user.documents ? 'Yes' : 'No' }}</td>
+                <td>{{ user.receiveNotifications }}</td>
+                <td>
+                    <a href="{{ path('app_users_show', {'id': user.id}) }}">show</a>
+                    <a href="{{ path('app_users_edit', {'id': user.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="15">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_users_new') }}">Create new</a>
+{% endblock %}
